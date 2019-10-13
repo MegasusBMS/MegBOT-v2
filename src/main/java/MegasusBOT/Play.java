@@ -120,26 +120,26 @@ public class Play {
 			try {
 				results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 						.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-						.setKey("AIzaSyBXqUY-vhlfNBzKTsu9UTMH7QvX2ErNSmQ").execute().getItems();
+						.setKey("token1").execute().getItems();
 			} catch (GoogleJsonResponseException e) {
 				try {
 					results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 							.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-							.setKey("AIzaSyAA6kvAk52KNEjW1y_J0YZYmeWTE2jkI_c").execute().getItems();
+							.setKey("token2").execute().getItems();
 				} catch (GoogleJsonResponseException q) {
 					try {
 						results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 								.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-								.setKey("AIzaSyCutbHqKXSiQF-q7ATSG7ZxJ8i51Y0bapQ").execute().getItems();
+								.setKey("token3").execute().getItems();
 					} catch (GoogleJsonResponseException w) {
 						try {
 							results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 									.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-									.setKey("AIzaSyBh786UQseUgfqUv8vEXb3if4m_ydNNQPs").execute().getItems();
+									.setKey("token4").execute().getItems();
 						} catch (GoogleJsonResponseException a) {
 							results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 									.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-									.setKey("AIzaSyDHZEaWZsE-FT7YBlIIoMbaRosOjzHpo6A").execute().getItems();
+									.setKey("token5").execute().getItems();
 
 						}
 					}
