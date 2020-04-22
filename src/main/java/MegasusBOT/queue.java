@@ -34,7 +34,7 @@ public class queue {
         int trackCount;
         List<AudioTrack> list;
         	list = new ArrayList<AudioTrack>(queue);
-        	trackCount = Math.min(queue.size(), 20);
+        	trackCount = Math.min(queue.size(), 10);
         EmbedBuilder builder = new EmbedBuilder();
                 builder.setTitle("Current Queue (Total: " + list.size()+ ")");
 
@@ -62,7 +62,7 @@ public class queue {
     }
 	private String formatTime(long timeInMillis) {
 		final long hours = timeInMillis / TimeUnit.HOURS.toMillis(1);
-		final long minutes = timeInMillis / TimeUnit.MINUTES.toMillis(1);
+		final long minutes = timeInMillis % TimeUnit.HOURS.toMillis(1) / TimeUnit.MINUTES.toMillis(1);
 		final long seconds = timeInMillis % TimeUnit.MINUTES.toMillis(1) / TimeUnit.SECONDS.toMillis(1);
 
 		return String.format("%02dh %02dm %02ds", hours, minutes, seconds);

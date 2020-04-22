@@ -3,12 +3,19 @@ package MegasusBOT;
 import java.util.List;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class clear{
 		public clear(String[] args, GuildMessageReceivedEvent event) {
-
+			if(!event.getMember().hasPermission(Permission.MANAGE_CHANNEL)){
+				EmbedBuilder usage = new EmbedBuilder();
+				usage.setTitle(":red_circle: U don't have permision to execute this command!");
+				event.getChannel().sendMessage(usage.build()).queue();
+				return;
+			}
+			
 		if (args[0].equalsIgnoreCase(MegasusBOT.prefix + "clear")) {
 			if (args.length < 2) {
 				EmbedBuilder usage = new EmbedBuilder();

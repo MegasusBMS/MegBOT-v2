@@ -3,8 +3,6 @@ package LeagueOfLegends;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.sound.midi.MidiDevice.Info;
-
 import Json.LolAccount;
 import Json.LolAccountSaved;
 import Json.LolChampion;
@@ -22,12 +20,12 @@ import net.rithms.riot.api.endpoints.match.dto.TeamStats;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 import net.rithms.riot.constant.Platform;
 
-public class lolprofile {
+public class lolProfileV2 {
 	boolean ready = false;
 	String name;
 	String platform;
 
-	public lolprofile(String[] args) throws RiotApiException {
+	public lolProfileV2(String[] args) throws RiotApiException {
 		EmbedBuilder lol = new EmbedBuilder();
 		if (args.length == 2) {
 			if (LolAccountSaved.exist(commands.e.getMember().getIdLong())) {
@@ -100,7 +98,6 @@ public class lolprofile {
 		lol.setTitle(":sparkles: Summoner: " + summoner.getName());
 		lol.appendDescription("Level: " + summoner.getSummonerLevel() + "\n");
 		lol.appendDescription("Region: " + Platform.getPlatformByName(ready ? platform : args[2]).getName());
-		lol.appendDescription("\n"+String.format("[%s](%s)","More info...","https://"+Platform.getPlatformByName(ready ? platform : args[2]).getName()+".op.gg/summoner/userName="+summoner.getName().replaceAll(" ","+")));
 		lol.setThumbnail("https://ddragon.leagueoflegends.com/cdn/9.16.1/img/profileicon/" + summoner.getProfileIconId()
 				+ ".png");
 		List<ChampionMastery> cm = api.getChampionMasteriesBySummoner(
@@ -143,8 +140,7 @@ public class lolprofile {
 		}
 		int lg = s * 100 / 10;
 		String score = k / 10 + "/" + d / 10 + "/" + as / 10;
-		lol.addBlankField(true);
-		lol.addField("Ratio/KDR","Last 10 games\n"+ lg + "%" + " / " + score, true);
+		lol.addField("Ratio/KDR(last 10 matches)", lg + "%" + " / " + score, true);
 		ParticipantStats ls = api
 				.getMatch(Platform.getPlatformByName(ready ? platform : args[2]), a.getMatches().get(0).getGameId())
 				.getParticipantBySummonerName(name).getStats();

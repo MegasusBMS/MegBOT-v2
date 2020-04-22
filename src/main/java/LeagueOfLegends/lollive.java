@@ -36,7 +36,7 @@ public class lollive {
 		}
 		if (args.length < 4 && !ready) {
 			lol.setTitle(":upside_down: Please provide some arguments");
-			lol.setDescription(MegasusBOT.prefix + "lol profile (Region) (SummonerName)");
+			lol.setDescription(MegasusBOT.prefix + "lol live (Region) (SummonerName)");
 			commands.e.getChannel().sendMessage(lol.build()).queue();
 			return;
 		}
@@ -88,8 +88,8 @@ public class lollive {
 			lol.appendDescription("GameType: " + type + "\n\n");
 			lol.appendDescription("BannedChamps:\n");
 			for (int i = 0; i < bc.size(); i++) {
-				lol.appendDescription("<:" + LolChampion.ObjectByID("id", bc.get(i).getChampionId()) + ":"
-						+ LolChampion.ObjectByID("emote", bc.get(i).getChampionId()) + ">");
+				lol.appendDescription(("<:" + LolChampion.ObjectByID("id", bc.get(i).getChampionId())+ ":"
+						+ LolChampion.ObjectByID("emote", bc.get(i).getChampionId()) + ">").replaceAll("N/A", "701788739252256788"));
 				if (i == 4) {
 					lol.appendDescription("      ");
 				}
@@ -120,12 +120,12 @@ public class lollive {
 			e.printStackTrace();
 		}
 		participant ="<:a:"+LolChampion.ObjectByID("emote", p.getChampionId())+">";
-		participant +=" "+p.getSummonerName();
+		participant +=" "+String.format("[%s](%s)",p.getSummonerName(),"https://"+Platform.getPlatformByName(ready ? platform : args[2]).getName()+".op.gg/summoner/userName="+p.getSummonerName().replaceAll(" ", "+"));
 		String[] b = "621679927757897738 621679202542026763 621679868559753258 621678629432066078 621679751664369665 621677151296421888 621676671929417789"
 				.split(" ");
 		for(int i=0;i<cm.size();i++)
 			if(p.getChampionId()==cm.get(i).getChampionId())
-				participant +="<:a:"+b[cm.get(i).getChampionLevel()]+">"+pointsConvertor(cm.get(i).getChampionPoints());
+				participant +="<:a:"+b[cm.get(i).getChampionLevel()-1]+">"+pointsConvertor(cm.get(i).getChampionPoints());
 		return participant;	
 	}
 	private String pointsConvertor(long points) {

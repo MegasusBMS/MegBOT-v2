@@ -15,6 +15,7 @@ import net.rithms.riot.constant.Platform;
 public class loladd {
 	loladd(String[] args){
 		EmbedBuilder lol = new EmbedBuilder();
+		String name="";
 		if (args.length < 4) {
 			lol.setTitle(":upside_down: Please provide some arguments");
 			lol.setDescription(MegasusBOT.prefix + "lol add (Region) (SummonerName)");
@@ -39,7 +40,12 @@ public class loladd {
 		Summoner summoner = null;
 		ApiConfig config = new ApiConfig().setKey(LeagueOfLegends.apikey);
 		RiotApi api = new RiotApi(config);
-		String name=commands.e.getMessage().getContentRaw().substring((args[0]+args[1]+args[2]).length()+3);
+		for(int i=3;i<args.length;i++){
+			if(i>3){
+				name+=" ";
+			}
+			name+=args[i];
+		}
 		try {
 			try {
 				summoner = api.getSummonerByName(Platform.getPlatformByName(args[2]),name);
@@ -61,7 +67,7 @@ public class loladd {
 		if(summoner== null){
 			return;
 		}
-		LolAccountSaved.AccountSave(commands.e.getMember().getIdLong(), args[2], args[3]);
+		LolAccountSaved.AccountSave(commands.e.getMember().getIdLong(), args[2], name);
 		commands.e.getChannel().sendMessage("Your account is saved on your discord id").queue();
 	}
 }

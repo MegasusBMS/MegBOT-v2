@@ -39,7 +39,7 @@ public class next {
 		AudioTrackInfo info = queue.get(0).getInfo();
 		EmbedBuilder n = new EmbedBuilder();
 		n.setTitle(":thinking: Next play :");
-		n.setDescription(String.format("**Playing** [%s](%s)\n%s %s", info.title, info.uri,"Duration: ",
+		n.setDescription(String.format("**Play** [%s](%s)\n%s %s", info.title, info.uri,"Duration: ",
 				formatTime(queue.get(0).getDuration())));
 		channel.sendMessage(n.build()).queue();
 	}

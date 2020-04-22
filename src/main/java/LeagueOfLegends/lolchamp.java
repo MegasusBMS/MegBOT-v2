@@ -21,7 +21,7 @@ public class lolchamp {
 		if(LolChampion.ObjectByName("emote", name)!=null)
 			c.setTitle("<:"+LolChampion.ObjectByName("id", t)+":"+LolChampion.ObjectByName("emote", t)+">"+LolChampion.ObjectByName("name", t)+", "+LolChampion.ObjectByName("title", t)+" (patch 9.18.1)");
 		else
-		c.setTitle(name+", "+LolChampion.ObjectByNamePatch("title", name)+" (patch 9.18.1)");
+		c.setTitle(name+", "+LolChampion.ObjectByNamePatch("title", name)+" (patch 10.7.1)");
 		try{
 		c.setThumbnail(LolChampion.ObjectByName("icon", t));
 		}catch(IllegalArgumentException e){
@@ -41,31 +41,51 @@ public class lolchamp {
 				+ "Range:\n"
 				+ "HPRegen:\n"
 				+ "ManaRegen:\n", true);
-		c.addField("", LolChampion.StatusByName("hp", name)+"\n"
-				+ LolChampion.StatusByName("attackdamage", name)+"\n"
-				+ LolChampion.StatusByName("mp", name)+"\n"
-				+ LolChampion.StatusByName("armor", name)+"\n"
-				+ LolChampion.StatusByName("spellblock", name)+"\n"
-				+ LolChampion.StatusByName("attackrange", name)+"\n"
-				+ LolChampion.StatusByName("hpregen", name)+"\n"
-				+ LolChampion.StatusByName("mpregen", name)+"\n", true);				
-		String[] x;
-		if(LolChampion.ObjectByName("ao", t)!=null){
-			x = LolChampion.ObjectByName("ao", t).split(" ");
+		float s[] = {0,0,0,0,0,0,0,0};
+		float ls[] = {0,0,0,0,0,0,0,0};
+		
+		s[0]= Float.valueOf(LolChampion.StatusByName("hp", name).toString());
+		s[1]= Float.valueOf(LolChampion.StatusByName("attackdamage", name).toString());
+		s[2]= Float.valueOf(LolChampion.StatusByName("mp", name).toString());
+		s[3]= Float.valueOf(LolChampion.StatusByName("armor", name).toString());
+		s[4]= Float.valueOf(LolChampion.StatusByName("spellblock", name).toString());
+		s[5]= Float.valueOf(LolChampion.StatusByName("attackrange", name).toString());
+		s[6]= Float.valueOf(LolChampion.StatusByName("hpregen", name).toString());
+		s[7]= Float.valueOf(LolChampion.StatusByName("mpregen", name).toString());
+		ls[0]= Float.valueOf(LolChampion.LastStatusByName("hp", name).toString());
+		ls[1]= Float.valueOf(LolChampion.LastStatusByName("attackdamage", name).toString());
+		ls[2]= Float.valueOf(LolChampion.LastStatusByName("mp", name).toString());
+		ls[3]= Float.valueOf(LolChampion.LastStatusByName("armor", name).toString());
+		ls[4]= Float.valueOf(LolChampion.LastStatusByName("spellblock", name).toString());
+		ls[5]= Float.valueOf(LolChampion.LastStatusByName("attackrange", name).toString());
+		ls[6]= Float.valueOf(LolChampion.LastStatusByName("hpregen", name).toString());
+		ls[7]= Float.valueOf(LolChampion.LastStatusByName("mpregen", name).toString());
+		String lsl[]={"","","","","","","",""};
+		for(int i=0;i<8;i++){
+			if(s[0]>ls[0])
+				lsl[i]=">";
+			else
+				if(s[i]==ls[i])
+					lsl[i]="=";
+				else
+					lsl[i]="<";
 		}
-		else{
-			x = "q w e q q r q e q e r e e w w r w w".split(" ");
-		}
-		c.appendDescription("Ability Order:\n");
-			for(int i=0;i<x.length;i++){
-				x[i]=":regional_indicator_"+x[i]+":";
-				if(i!=x.length-1){
-					x[i]=x[i]+">>";
-				}else{
-					x[i]=x[i]+"\n";
-				}
-				c.appendDescription(x[i]);
-			}
+		c.addField("Patch 10.7.1", "**"+s[0]+"\n"
+				+ s[1]+"\n"
+				+ s[2]+"\n"
+				+ s[3]+"\n"
+				+ s[4]+"\n"
+				+ s[5]+"\n"
+				+ s[6]+"\n"
+				+ s[7]+"\n**", true);
+		c.addField("Patch 10.6.1", "**"+lsl[0]+" "+ls[0]+"\n"
+				+ lsl[1]+" "+ls[1]+"\n"
+				+ lsl[2]+" "+ls[2]+"\n"
+				+ lsl[3]+" "+ls[3]+"\n"
+				+ lsl[4]+" "+ls[4]+"\n"
+				+ lsl[5]+" "+ls[5]+"\n"
+				+ lsl[6]+" "+ls[6]+"\n"
+				+ lsl[7]+" "+ls[7]+"\n**", true);
 		commands.e.getChannel().sendMessage(c.build()).queue();
 	}
 }

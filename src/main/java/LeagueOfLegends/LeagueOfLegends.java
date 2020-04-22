@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.rithms.riot.api.RiotApiException;
 
 public class LeagueOfLegends {
-	public static String apikey = "RGAPI-5250efd5-402e-4e51-a25a-2b66654ae7ad";
+	public static String apikey = "RGAPI-73267e51-a098-422a-b497-72937e448650";
 	public LeagueOfLegends(String[] args, GuildMessageReceivedEvent event) {
 		String[] i = "profile live add remove p champ champion c".split(" ");
 		int command = 100;

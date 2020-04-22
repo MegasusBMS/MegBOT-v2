@@ -79,6 +79,9 @@ public class Play {
 			manager.loadAndPlay(event.getChannel(), args[1]);
 			return;
 		}
+		//if(args[1].startsWith("https://open.spotify.com/track/05l63xRmIhBCYmGSPFOhyE?si=")){
+		//	args=Spotify.Name(args[1].substring("https://open.spotify.com/track/05l63xRmIhBCYmGSPFOhyE?si=".length())).split(" ");
+		//}
 
 		String imput = "";
 		for (int i = 1; i < args.length; i++) {
@@ -117,29 +120,29 @@ public class Play {
 	private String searchYoutube(String input) {
 		try {
 			List<SearchResult> results;
-			try {
+			try { 
 				results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 						.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-						.setKey("AIzaSyBXqUY-vhlfNBzKTsu9UTMH7QvX2ErNSmQ").execute().getItems();
+						.setKey("AIzaSyDWqLqNE3mYJnrx7S_QUrVPB1rgL0MrN6c").execute().getItems();
 			} catch (GoogleJsonResponseException e) {
 				try {
 					results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 							.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-							.setKey("AIzaSyAA6kvAk52KNEjW1y_J0YZYmeWTE2jkI_c").execute().getItems();
+							.setKey("AIzaSyCPpG9guLtxDGBkIYfdN2zJ1vq4C_vU6Io").execute().getItems();
 				} catch (GoogleJsonResponseException q) {
 					try {
 						results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 								.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-								.setKey("AIzaSyCutbHqKXSiQF-q7ATSG7ZxJ8i51Y0bapQ").execute().getItems();
+								.setKey("AIzaSyDWqLqNE3mYJnrx7S_QUrVPB1rgL0MrN6c").execute().getItems();
 					} catch (GoogleJsonResponseException w) {
 						try {
 							results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 									.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-									.setKey("AIzaSyBh786UQseUgfqUv8vEXb3if4m_ydNNQPs").execute().getItems();
+									.setKey("AIzaSyBacRrWKlXMo0KO6oCrR8u2Pyq74q22YIU").execute().getItems();
 						} catch (GoogleJsonResponseException a) {
 							results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 									.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-									.setKey("AIzaSyDHZEaWZsE-FT7YBlIIoMbaRosOjzHpo6A").execute().getItems();
+									.setKey("AIzaSyDWqLqNE3mYJnrx7S_QUrVPB1rgL0MrN6c").execute().getItems();
 
 						}
 					}

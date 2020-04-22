@@ -22,7 +22,7 @@ public class commands extends ListenerAdapter{
 		if(event.getGuild().getSelfMember()!=event.getMember())
 		if(args[0].startsWith(MegasusBOT.prefix)){
 			String c = args[0];
-			String[] i = "clear status ban leave join volume queue stop play skip kick repeat np nowplay support next profile lol spam shutdown mentenance".split(" ");
+			String[] i = "clear status ban leave join volume queue stop play skip kick repeat np nowplay support next roles lol spam shutdown mentenance meme avatar role".split(" ");
 			int command = 100;
 			for(int j=0;j<i.length;j++){
 				if((MegasusBOT.prefix+i[j]).equalsIgnoreCase(c)){
@@ -41,9 +41,9 @@ public class commands extends ListenerAdapter{
 			case 1:
 				new status(event);
 				break;
-			case 2:
+			/*case 2:
 				new ban(msg,event);
-				break;
+				break;*/
 			case 3:
 				new leave(event);
 				break;
@@ -65,9 +65,9 @@ public class commands extends ListenerAdapter{
 			case 9:
 				new skip(msg,event);
 				break;
-			case 10:
+			/*case 10:
 				new kick(msg,event);
-				break;
+				break;*/
 			case 11:
 				new repeat(args,event);
 				break;
@@ -81,22 +81,23 @@ public class commands extends ListenerAdapter{
 				EmbedBuilder support = new EmbedBuilder();
 				support.setTitle(":hugging: Support");
 				event.getChannel().sendMessage(support.build()).queue();
-				event.getChannel().sendMessage("https://discord.gg/B76kauM").queue();
+				event.getChannel().sendMessage("***Contact***: Megasus#4837").queue();
 				break;
 			case 15:
 				new next(msg,event);
 				break;
 			case 16:
-				new profile(msg,event);
+				new roles(event);
 				break;
 			case 17:
 				new LeagueOfLegends(args,event);
 				break;
-			case 18:
+			/*case 18:
 				new spam(args,event);
-				break;
+				break;*/
 			case 19:
 				if(event.getMember().isOwner()){
+					event.getChannel().sendMessage("ShutingDown...");
 					event.getJDA().shutdown();
 					System.out.println("SutingDown...");
 					System.exit(10);
@@ -107,13 +108,20 @@ public class commands extends ListenerAdapter{
 				mentenance=!mentenance;
 				event.getChannel().sendMessage("MentenanceStatus: "+mentenance).queue();
 				break;
+			case 21:
+				new meme(event);
+				break;
+			case 22:
+				new avatar(event);
+				break;
+			case 23:
+				new role(event);
+				break;
 			default :
 				new help(event);
 				break;
 			}
 		}else{
-			//if(event.getMember().getId()!="603476324195237908")
-			//new spamevent();
 		}
 	}
 }

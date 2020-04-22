@@ -8,7 +8,12 @@ public class lolhelp {
 	public lolhelp(GuildMessageReceivedEvent event) {
 		EmbedBuilder help = new EmbedBuilder();
 		help.setTitle(":sos: (!!!BETA!!!) League of Legends commands:");
-		help.setDescription(MegasusBOT.prefix + "lol (profile,add,remove)\n Baza de date este neterminata, se lucreaza la baza de date la iteme si comenzile lol champ,live");
+		help.setDescription("lol add (region) (summoner)           **->** link your summoner on discordID \n"
+							+ "lol remove 				           **->** unlink your summoner from discordID\n"
+							+ "lol profile / p 			           **->** show your Lol profile\n"
+							+ "lol profile / p (region) (summoner) **->** show the Lol profile of that summoner\n"
+							+ "lol live                            **->** show your live game\n"
+							+ "lol live (regiun) (summoner)        **->** show the live game of that summoner");
 		event.getChannel().sendMessage(help.build()).queue();
 	}
 }

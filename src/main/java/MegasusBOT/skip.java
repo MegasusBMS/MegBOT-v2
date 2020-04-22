@@ -28,7 +28,7 @@ public class skip {
 			channel.sendMessage("Nothing to skip").queue();
 			return;
 		}
-		player.getPlayingTrack().setPosition(player.getPlayingTrack().getDuration());
+		musicManager.scheduler.nextTrack();
 		channel.sendMessage("Skipping...").queue();
 	}
 

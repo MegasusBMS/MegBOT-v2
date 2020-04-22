@@ -125,6 +125,27 @@ public class LolChampion {
 		return null;
 	}
 	
+	public static Object LastStatusByName(String ob, String name) {
+		JSONParser p = new JSONParser();
+
+		try {
+				Object o = p.parse(new FileReader("championsLAST.json"));
+				JSONObject a = (JSONObject) o;
+				JSONObject ab = (JSONObject) a.get("data");
+				JSONObject abc = (JSONObject) ab.get(name);
+				JSONObject abcd = (JSONObject) abc.get("stats");
+				Object x = abcd.get(ob);
+				return x;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static String TagsbyName(String name) {
 		JSONParser p = new JSONParser();
 

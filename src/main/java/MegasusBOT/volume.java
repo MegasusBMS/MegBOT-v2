@@ -10,11 +10,16 @@ public class volume {
 	public volume(String[] args, GuildMessageReceivedEvent event) {
 		PlayerManager mm = PlayerManager.getInstance();
 		try{
-			
+			if(args.length==1){
+				EmbedBuilder v = new EmbedBuilder();
+				v.setTitle(":no_entry: Please provide volume level");
+				event.getChannel().sendMessage(v.build()).queue();
+				return;
+			}
 		int volum = Integer.parseInt(args[1]);
 
 		EmbedBuilder v = new EmbedBuilder();
-		if(volum>50&&!event.getMember().hasPermission(Permission.ADMINISTRATOR)&&event.getMember().getId()=="305359668061011968"){
+		if(volum>50&&!event.getMember().hasPermission(Permission.MANAGE_CHANNEL)){
 			v.setTitle(":cry: Maxim volume for you is 50");
 			event.getChannel().sendMessage(v.build()).queue();
 			return;

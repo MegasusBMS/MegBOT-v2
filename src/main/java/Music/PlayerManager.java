@@ -12,9 +12,11 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import MegasusBOT.Play;
+import MegasusBOT.commands;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class PlayerManager {
 	private static PlayerManager INSTANCE;
@@ -48,12 +50,13 @@ public class PlayerManager {
 
 		playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
 			public void trackLoaded(AudioTrack track) {
-				if(Play.b){
-				EmbedBuilder pm = new EmbedBuilder();
-				pm.setTitle(":musical_note: Adding to queue: ");
-				pm.setDescription(track.getInfo().title + "\n");
-				pm.setThumbnail("https://i.ytimg.com/vi/"+trackUrl.substring("https://www.youtube.com/watch?v=".length())+"/hqdefault.jpg");
-				channel.sendMessage(pm.build()).queue();
+				if (Play.b) {
+					EmbedBuilder pm = new EmbedBuilder();
+					pm.setTitle(":musical_note: Adding to queue: ");
+					pm.setDescription(track.getInfo().title + "\n");
+					pm.setThumbnail("https://i.ytimg.com/vi/"
+							+ trackUrl.substring("https://www.youtube.com/watch?v=".length()) + "/hqdefault.jpg");
+					channel.sendMessage(pm.build()).queue();
 				}
 				play(musicManager, track);
 			}
@@ -69,9 +72,11 @@ public class PlayerManager {
 				pm.setDescription(firstTrack.getInfo().title + " (first track of playlist " + playlist.getName() + ")");
 				channel.sendMessage(pm.build()).queue();
 				play(musicManager, firstTrack);
-				if(playlist.getTracks().size()>0)
-				for(int i=0;i<playlist.getTracks().size();i++){
-					play(musicManager,playlist.getTracks().get(i));
+				if (playlist.getTracks().size() > 0) {
+					int tc = Math.min(playlist.getTracks().size(), 50);
+					for (int i = 1; i < tc; i++) {
+						play(musicManager, playlist.getTracks().get(i));
+					}
 				}
 			}
 
