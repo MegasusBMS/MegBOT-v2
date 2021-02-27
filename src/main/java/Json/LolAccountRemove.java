@@ -20,9 +20,11 @@ public class LolAccountRemove {
 			}
 		} catch (NullPointerException e2) {
 		}
-		try (FileWriter f = new FileWriter("LolAccountSaved.json")) {
+		try {
+			FileWriter f = new FileWriter("LolAccountSaved.json");
 			f.write(a.toString());
 			f.flush();
+			f.close();
 		} catch (IOException b) {
 			b.printStackTrace();
 		}
