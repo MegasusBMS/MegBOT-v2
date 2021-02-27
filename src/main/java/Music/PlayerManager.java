@@ -12,11 +12,9 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import MegasusBOT.Play;
-import MegasusBOT.commands;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class PlayerManager {
 	private static PlayerManager INSTANCE;
@@ -36,7 +34,7 @@ public class PlayerManager {
 		GuildMusicManager musicManager = musicManagers.get(guildId);
 
 		if (musicManager == null) {
-			musicManager = new GuildMusicManager(playerManager);
+			musicManager = new GuildMusicManager(playerManager,guild.getAudioManager());
 			musicManagers.put(guildId, musicManager);
 		}
 
@@ -92,7 +90,6 @@ public class PlayerManager {
 				pm.setTitle(":cry: Something went rong!");
 				pm.setDescription("Could not play: " + exception.getMessage());
 				channel.sendMessage(pm.build()).queue();
-				channel.sendMessage("Could not play: " + exception.getMessage()).queue();
 			}
 		});
 

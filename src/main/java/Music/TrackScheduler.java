@@ -13,16 +13,19 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import MegasusBOT.MegasusBOT;
 import MegasusBOT.Play;
 import MegasusBOT.commands;
+import net.dv8tion.jda.api.managers.AudioManager;
 
 public class TrackScheduler extends AudioEventAdapter {
 	private final AudioPlayer player;
+	public AudioManager am;
 	public BlockingQueue<AudioTrack> queue;
 	public static List<AudioTrack> tracks;
 	public static boolean start = false;
 
-	public TrackScheduler(AudioPlayer player) {
+	public TrackScheduler(AudioPlayer player,AudioManager am) {
 		this.player = player;
 		this.queue = new LinkedBlockingQueue<AudioTrack>();
+		this.am = am;
 	}
 
 	public void queue(AudioTrack track) {

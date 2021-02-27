@@ -22,7 +22,7 @@ public class commands extends ListenerAdapter{
 		if(event.getGuild().getSelfMember()!=event.getMember())
 		if(args[0].startsWith(MegasusBOT.prefix)){
 			String c = args[0];
-			String[] i = "clear status ban leave join volume queue stop play skip kick repeat np nowplay support next roles lol spam shutdown mentenance meme avatar role".split(" ");
+			String[] i = "clear status test leave join volume queue stop play skip kick repeat np nowplay support next roles lol spam shutdown mentenance meme avatar role".split(" ");
 			int command = 100;
 			for(int j=0;j<i.length;j++){
 				if((MegasusBOT.prefix+i[j]).equalsIgnoreCase(c)){
@@ -41,9 +41,10 @@ public class commands extends ListenerAdapter{
 			case 1:
 				new status(event);
 				break;
-			/*case 2:
-				new ban(msg,event);
-				break;*/
+			case 2:
+				if(event.getAuthor().getId().equals("305359668061011968"))
+				new test(event);
+				break;
 			case 3:
 				new leave(event);
 				break;
@@ -68,9 +69,9 @@ public class commands extends ListenerAdapter{
 			/*case 10:
 				new kick(msg,event);
 				break;*/
-			case 11:
+			/*case 11:
 				new repeat(args,event);
-				break;
+				break;*/
 			case 12:
 				new NowPlay(msg,event);
 				break;

@@ -26,6 +26,8 @@ public class Play {
 	private YouTube YouTube = null;
 	public static String input;
 	public static boolean b;
+	public boolean randomlist=false;
+	public boolean playlist=false;
 
 	public Play(String[] args, GuildMessageReceivedEvent event, boolean bo) {
 		TextChannel channel = event.getChannel();
@@ -75,22 +77,42 @@ public class Play {
 		}
 		PlayerManager manager = PlayerManager.getInstance();
 		YouTube = temp;
-		if(args[1].startsWith("https://www.youtube.com/watch?v=")){
+		if (args[1].startsWith("https://www.youtube.com/watch?v=")) {
 			manager.loadAndPlay(event.getChannel(), args[1]);
 			return;
 		}
-		//if(args[1].startsWith("https://open.spotify.com/track/05l63xRmIhBCYmGSPFOhyE?si=")){
-		//	args=Spotify.Name(args[1].substring("https://open.spotify.com/track/05l63xRmIhBCYmGSPFOhyE?si=".length())).split(" ");
-		//}
+		// if(args[1].startsWith("https://open.spotify.com/track/05l63xRmIhBCYmGSPFOhyE?si=")){
+		// args=Spotify.Name(args[1].substring("https://open.spotify.com/track/05l63xRmIhBCYmGSPFOhyE?si=".length())).split("
+		// ");
+		// }
 
 		String imput = "";
 		for (int i = 1; i < args.length; i++) {
-			imput = imput + args[i] + " ";
+			/*if (args[i].equals("-l")) {
+				if (!randomlist)
+					playlist = true;
+			} else {
+				if (!args[i].equals("-r")) {
+					if (i == args.length - 1) {
+						imput = imput + args[i];
+					} else
+						imput = imput + args[i] + " ";
+				} else {
+					if (!playlist)
+						randomlist = true;
+				}
+			}*/
+			if (i == args.length - 1) {
+				imput = imput + args[i];
+			} else
+				imput = imput + args[i] + " ";
 		}
 		input = imput;
 
 		if (!isUrl(input)) {
 			String ytSearched = searchYoutube(input);
+			System.out.print("Server: " + event.getGuild().getName() + " Catator: " + event.getAuthor().getName()
+					+ " Cautare: " + imput + " Rezultat: " + ytSearched + "\n");
 
 			if (ytSearched == null) {
 				EmbedBuilder play = new EmbedBuilder();
@@ -106,51 +128,93 @@ public class Play {
 		manager.loadAndPlay(event.getChannel(), input);
 	}
 
-    private boolean isUrl(String input) {
-        try {
-            new URL(input);
+	private boolean isUrl(String input) {
+		try {
+			new URL(input);
 
-            return true;
-        } catch (MalformedURLException ignored) {
-            return false;
-        }
-    }
+			return true;
+		} catch (MalformedURLException ignored) {
+			return false;
+		}
+	}
 
 	@Nullable
 	private String searchYoutube(String input) {
 		try {
 			List<SearchResult> results;
-			try { 
-				results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
-						.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-						.setKey("AIzaSyDWqLqNE3mYJnrx7S_QUrVPB1rgL0MrN6c").execute().getItems();
-			} catch (GoogleJsonResponseException e) {
+			if (playlist) {
+				try {
+					results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("playlist")
+							.setFields("items(id/kind,id/PlayListId,snippet/title,snippet/thumbnails/default/url)")
+							.setKey("AIzaSyBQOsZVBB4AFnJbvi8jCjOJqDt82e-qPOA").execute().getItems();
+				} catch (GoogleJsonResponseException e) {
+					try {
+						results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(25L).setType("playlist")
+								.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
+								.setKey("AIzaSyDWqLqNE3mYJnrx7S_QUrVPB1rgL0MrN6c").execute().getItems();
+					} catch (GoogleJsonResponseException q) {
+						try {
+							results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(25L).setType("playlist")
+									.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
+									.setKey("AIzaSyBacRrWKlXMo0KO6oCrR8u2Pyq74q22YIU").execute().getItems();
+						} catch (GoogleJsonResponseException w) {
+			 				try {
+								results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(25L)
+										.setType("playlist")
+										.setFields(
+												"items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
+										.setKey("AIzaSyBFJwcEl-ui3HN6QCDZ3k4SIDWLeLtb6dA").execute().getItems();
+							} catch (GoogleJsonResponseException a) {
+								results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(25L)
+										.setType("playlist")
+										.setFields(
+												"items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
+										.setKey("AIzaSyCPpG9guLtxDGBkIYfdN2zJ1vq4C_vU6Io").execute().getItems();
+
+							}
+						}
+					}
+				}
+			} else {
 				try {
 					results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 							.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-							.setKey("AIzaSyCPpG9guLtxDGBkIYfdN2zJ1vq4C_vU6Io").execute().getItems();
-				} catch (GoogleJsonResponseException q) {
+							.setKey("AIzaSyBQOsZVBB4AFnJbvi8jCjOJqDt82e-qPOA").execute().getItems();
+				} catch (GoogleJsonResponseException e) {
 					try {
 						results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 								.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
 								.setKey("AIzaSyDWqLqNE3mYJnrx7S_QUrVPB1rgL0MrN6c").execute().getItems();
-					} catch (GoogleJsonResponseException w) {
+					} catch (GoogleJsonResponseException q) {
 						try {
 							results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
 									.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
 									.setKey("AIzaSyBacRrWKlXMo0KO6oCrR8u2Pyq74q22YIU").execute().getItems();
-						} catch (GoogleJsonResponseException a) {
-							results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L).setType("video")
-									.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-									.setKey("AIzaSyDWqLqNE3mYJnrx7S_QUrVPB1rgL0MrN6c").execute().getItems();
+						} catch (GoogleJsonResponseException w) {
+							try {
+								results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L)
+										.setType("video")
+										.setFields(
+												"items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
+										.setKey("AIzaSyBFJwcEl-ui3HN6QCDZ3k4SIDWLeLtb6dA").execute().getItems();
+							} catch (GoogleJsonResponseException a) {
+								results = YouTube.search().list("id,snippet").setQ(input).setMaxResults(1L)
+										.setType("video")
+										.setFields(
+												"items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
+										.setKey("AIzaSyCPpG9guLtxDGBkIYfdN2zJ1vq4C_vU6Io").execute().getItems();
 
+							}
 						}
 					}
 				}
 			}
 			if (!results.isEmpty()) {
 				String videoId = results.get(0).getId().getVideoId();
-				
+				if (randomlist) {
+					randomlist = false;
+					videoId = videoId + "&list=RDWL1hlzLsUaU&start_radio=1&t=1";
+				}
 				return "https://www.youtube.com/watch?v=" + videoId;
 			}
 		} catch (Exception e) {

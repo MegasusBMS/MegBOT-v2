@@ -4,7 +4,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class avatar {
-	@SuppressWarnings("static-access")
 	public avatar(GuildMessageReceivedEvent event) {
 		String nick="";
 		String image="";
