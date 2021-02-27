@@ -18,7 +18,7 @@ public class LolAccount {
 			JSONArray a = (JSONArray) o;
 			for(int i=0;i<a.size();i++){
 			JSONObject obj = (JSONObject)a.get(i);
-		    long key =(long)obj.get("id");
+		    long key =Long.decode((String)obj.get("id")).longValue();
 		    if(key==id){
 		    	String name = (String) obj.get(s);
 		    	return name;
