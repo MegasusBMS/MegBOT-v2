@@ -35,14 +35,9 @@ public class help extends ListenerAdapter {
 				+ "**Meme:** meme .\n"
 				+ "**LeagueOfLegends:** lol, lol profile,lol add, lol remove, lol live.\n"
 				+ "**Other:** profile, avatar .\n"
-				+ "**Support: Megasus#4837** .\n\n"+
-				String.format(
-		                "[%s](%s)",
-		                "**Click here to invite me to your discord server**",
-		                "https://discordapp.com/api/oauth2/authorize?client_id=603476324195237908&permissions=536869879&scope=bot")
-				);
+				+ "**Support: Megasus#4837** .\n\n");
 		help.setFooter("We are in "+event.getJDA().getGuilds().size()+" Discord Servers");
 		if(b)
-		event.getAuthor().openPrivateChannel().queue(channel -> channel.sendMessage(help.build()).queue());
+		event.getChannel().sendMessage(help.build()).queue();
 	}
 }
