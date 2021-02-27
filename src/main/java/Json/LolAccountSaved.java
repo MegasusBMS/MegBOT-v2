@@ -49,11 +49,15 @@ public class LolAccountSaved {
 		JSONParser p = new JSONParser();
 		Object o;
 		try {
-			o = p.parse(new FileReader("LolAccountSaved.json"));
-			JSONArray a = (JSONArray) o;
-			return a;
-		} catch (IOException | ParseException e) {
-			return null;
+			try {
+				o = p.parse(new FileReader("LolAccountSaved.json"));
+				JSONArray a = (JSONArray) o;
+				return a;
+			} catch (IOException e) {
+				return null;
+			}
+		}catch (ParseException e){
+		return null;
 		}
 	}
 	public static boolean exist (long id){
