@@ -36,9 +36,11 @@ public class LolAccountSaved {
 		} catch (NullPointerException e2) {
 		}
 		a.add(list);
-		try (FileWriter f = new FileWriter("LolAccountSaved.json")) {
+		try{
+			FileWriter f = new FileWriter("LolAccountSaved.json");
 			f.write(a.toString());
 			f.flush();
+			f.close();
 		} catch (IOException b) {
 			b.printStackTrace();
 		}
